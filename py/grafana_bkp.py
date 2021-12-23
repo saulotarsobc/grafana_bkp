@@ -4,7 +4,7 @@ import json
 server = 'http://IP:3000'
 api_token = 'API_TOKEN'
 headers = {
-    "Authorization": "Bearer " + api_token
+    "Authorization": f"Bearer {api_token}"
 }
 
 
@@ -17,7 +17,7 @@ def search():
 def gerarJson(nome, dashboardJson):
     with open(nome, 'w') as json_file:
         json.dump(dashboardJson, json_file, indent=4)
-        print('Dashboard salva com sucesso >> ' + nome)
+        print(f'Dashboard salva com sucesso >> {nome}')
 
 
 for dash in search():
