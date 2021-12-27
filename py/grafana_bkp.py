@@ -9,21 +9,23 @@ headers = {
 
 
 def search():
-    url = server + "/api/search"
-    content = requests.get(url=url, headers=headers, verify=False)
-    return content.json()
+    return requests.get(
+        url=f"{server}/api/search",
+        headers=headers,
+        verify=False
+    ).json()
 
 
-def gerarJson(nome, dashboardJson):
+def criarJson(nome, dashEmJson):
     with open(nome, 'w') as json_file:
-        json.dump(dashboardJson, json_file, indent=4)
-        print(f'Dashboard salva com sucesso >> {nome}')
+        json.dump(dashEmJson, json_file, indent=4)
+        print(f'Sucesso >> {nome}')
 
 
 for dash in search():
-    uid = dash['uid']
-    nome = dash['title'] + '.json'
-    url = server + '/api/dashboards/uid/' + uid
-    result = requests.get(url=url, headers=headers, verify=False).json()
-    dashboardJson = result['dashboard']
-    gerarJson(nome, dashboardJson)
+    result = requests.get(
+        url=f"{server}/api/dashboards/uid/{dash['uid']}",
+        headers=headers,
+        verify=False
+    ).json()
+    criarJson(f"{dash['type']} - {dash['title']}.json", result['dashboard'])
