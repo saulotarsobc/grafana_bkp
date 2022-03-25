@@ -1,8 +1,8 @@
 import requests
 import json
 
-server = 'http://IP:3000'
-api_token = 'API_TOKEN'
+server = 'http://10.0.0.1:3000'
+api_token = 'SeuTokenAki'
 headers = {
     "Authorization": f"Bearer {api_token}"
 }
