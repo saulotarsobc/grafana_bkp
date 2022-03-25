@@ -9,17 +9,16 @@ headers = {
 
 
 def search():
-    return requests.get(
-        url=f"{server}/api/search",
-        headers=headers,
-        verify=False
-    ).json()
+    return requests.get(url=f"{server}/api/search", headers=headers, verify=False).json()
 
 
 def criarJson(nome, dashEmJson):
-    with open(nome, 'w') as json_file:
+    try:
+        json_file = open(nome, 'w')
         json.dump(dashEmJson, json_file, indent=4)
         print(f'Sucesso >> {nome}')
+    except:
+        exit('Nao consegui criar o arquivo .json')
 
 
 for dash in search():
@@ -28,4 +27,5 @@ for dash in search():
         headers=headers,
         verify=False
     ).json()
+
     criarJson(f"{dash['type']} - {dash['title']}.json", result['dashboard'])
